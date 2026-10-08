@@ -34,6 +34,12 @@ const bot = new BotState({
   const c0 = cols.length ? bot.world.columns[cols[0]] : null;
   log('sections len =', c0?.sections?.length || 0);
 
+  // 连不上 / 解码失败 → 非零退出（供 CI 与自动化判定）
+  if (cols.length === 0 || !c0 || (c0.sections?.length || 0) === 0) {
+    log('FAIL: 世界解码为空（连接失败或补丁未生效）');
+    process.exit(2);
+  }
+
   // 扫 6 列，每列沿 Y 采样
   const found = {};
   let total = 0;

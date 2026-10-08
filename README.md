@@ -100,14 +100,22 @@ columns = 113 | sections = 15
 non-air = 1440（Y 全高度剖面）
 ```
 
-### 容器 + 物品操作（服务端权威验证）
+### 容器 + 物品操作（`scripts/final2.js`，服务端权威验证）
 ```
 PASS 开箱                 :: slots=27
-PASS 读到 3 格             :: diamondx3 emeraldx1 gold_ingotx5
+PASS 读到钻石+翡翠         :: diamondx3 emeraldx1
 PASS 拿到翡翠              :: status="ok"
-PASS 丢弃                  :: status="ok" + add_item_entity
+PASS 丢弃被接受            :: status="ok"
+PASS 连接存活              :: status=4
 PASS 服务端确认背包无翡翠   :: "no items to remove"   ← 权威
-结果: 通过 12 / 失败 0（连跑 3 次稳定）
+结果: 通过 6 / 失败 0
+```
+
+### 地面掉落物证明（`scripts/proof.js`，三层证据）
+```
+★ add_item_entity（地面出现掉落物）id=28     ← 物品真的落地
+Found Emerald                                ← 原位置确实有翡翠
+no items to remove                           ← 服务端确认背包空
 ```
 
 ---
